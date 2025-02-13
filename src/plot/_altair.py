@@ -3,7 +3,7 @@ from vega_datasets import data
 from typing import Optional
 
 
-def plot_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[str] = None) -> alt.vegalite.v5.api.Chart:
+def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[str] = None) -> alt.vegalite.v5.api.Chart:
 
     _data = getattr(data, dataset_name)()
 
