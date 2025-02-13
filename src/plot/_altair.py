@@ -24,3 +24,14 @@ def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[st
 
 def show_dataset_names():
     print([d for d in dir(data) if not d.startswith("_")])
+
+
+def horizontally_concat_charts(charts: list):
+    concat_chart = charts[0]
+
+    for _chart in charts[1:]:
+        concat_chart = concat_chart | _chart
+
+    return concat_chart
+
+
