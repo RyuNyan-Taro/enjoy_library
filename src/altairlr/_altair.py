@@ -3,7 +3,7 @@ from vega_datasets import data
 from typing import Optional
 
 
-def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[str] = None) -> alt.vegalite.v5.api.Chart:
+def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[str] = None, tool_tip: Optional[list[str]] = None) -> alt.vegalite.v5.api.Chart:
 
     _data = getattr(data, dataset_name)()
 
@@ -14,6 +14,7 @@ def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[st
             x=alt.X(x),
             y=alt.Y(y),
             color='Origin',
+            tool_tip=tool_tip
         ).interactive()
 
         return plot_class
@@ -31,6 +32,15 @@ def horizontally_concat_charts(charts: list):
 
     for _chart in charts[1:]:
         concat_chart = concat_chart | _chart
+
+    return concat_chart
+
+
+def vertically_concat_charts(charts: list):
+    concat_chart = charts[0]
+
+    for _chart in charts[1:]:
+        concat_chart = concat_chart & _chart
 
     return concat_chart
 
