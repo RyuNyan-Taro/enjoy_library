@@ -11,8 +11,8 @@ def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[st
 
         # make the chart
         plot_class = alt.Chart(_data).mark_point().encode(
-            x=x,
-            y=y,
+            x=alt.X(x),
+            y=alt.Y(y),
             color='Origin',
         ).interactive()
 
