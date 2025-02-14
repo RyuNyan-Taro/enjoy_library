@@ -6,6 +6,17 @@ from typing import Optional
 
 
 def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[str] = None, tool_tip: Optional[list[str]] = None) -> alt.vegalite.v5.api.Chart:
+    """Return a Chart plot or show information of the dataset_name.
+
+    Args:
+        dataset_name: Vega dataset name.
+        x: X column name and type of altair format.
+        y: Y column name and type of altair format.
+        tool_tip: Tool tip for plot.
+
+    Returns:
+        The interactive altair Chart.
+    """
 
     _data = getattr(data, dataset_name)()
 
