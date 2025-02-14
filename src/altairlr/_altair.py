@@ -20,15 +20,17 @@ def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[st
 
     _data = getattr(data, dataset_name)()
 
-    if x and y:
+    if x or y:
+        _encord_items = {'color': 'Origin'}
+        if x:
+            _encord_items['x'] = alt.X(x)
+        if y:
+            _encord_items['y'] = alt.Y(y)
+        if tool_tip:
+            _encord_items['tool_tip'] = tool_tip
 
         # make the chart
-        plot_class = alt.Chart(_data).mark_point().encode(
-            x=alt.X(x),
-            y=alt.Y(y),
-            color='Origin',
-            tool_tip=tool_tip
-        ).interactive()
+        plot_class = alt.Chart(_data).mark_point().encode(**_encord_items).interactive()
 
         return plot_class
 
