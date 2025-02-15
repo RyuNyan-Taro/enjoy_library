@@ -1,11 +1,15 @@
-__all__ = ['chart_sample_data', 'chart_selected_mark', 'chart_with_encode_items', 'show_dataset_names', 'show_mark_types', 'get_mark_types', 'horizontally_concat_charts', 'vertically_concat_charts']
+__all__ = [
+    'chart_sample_data', 'chart_selected_mark', 'chart_with_encode_items', 'chart_with_layout',
+    'show_dataset_names', 'show_mark_types',
+    'get_mark_types', 'horizontally_concat_charts', 'vertically_concat_charts']
 
 import altair as alt
 from vega_datasets import data
-from typing import Optional
+from typing import Optional, Union
 
 
-def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[str] = None, tool_tip: Optional[list[str]] = None) -> alt.vegalite.v5.api.Chart:
+def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[str] = None,
+                      tool_tip: Optional[list[str]] = None) -> alt.vegalite.v5.api.Chart:
     """Return a Chart plot or show information of the dataset_name.
 
     Args:
@@ -52,6 +56,16 @@ def chart_with_encode_items(dataset_name: str, x: str, y: str, encode_items: lis
     return alt.Chart(_data).mark_point().encode(alt.X(x), alt.Y(y), *encode_items)
 
 
+def chart_with_layout(dataset: Union[alt.ChartDataType, str], x: str, y: str, x_layout: dict, y_layout: dict) -> alt.vegalite.v5.api.Chart:
+    if isinstance(dataset, str):
+        dataset = getattr(data, dataset)()
+
+    return alt.Chart(dataset).mark_point().encode(
+        alt.X(x, **x_layout),
+        alt.Y(y, **y_layout)
+    )
+
+
 def show_dataset_names():
     print([d for d in dir(data) if not d.startswith("_")])
 
@@ -84,5 +98,3 @@ def vertically_concat_charts(charts: list) -> list:
         concat_chart = concat_chart & _chart
 
     return concat_chart
-
-
