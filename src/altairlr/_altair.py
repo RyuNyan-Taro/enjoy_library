@@ -1,4 +1,4 @@
-__all__ = ['chart_sample_data', 'show_dataset_names', 'horizontally_concat_charts', 'vertically_concat_charts']
+__all__ = ['chart_sample_data', 'chart_with_encode_items', 'horizontally_concat_charts', 'vertically_concat_charts']
 
 import altair as alt
 from vega_datasets import data
@@ -36,6 +36,12 @@ def chart_sample_data(dataset_name: str, x: Optional[str] = None, y: Optional[st
 
     else:
         print(_data.info())
+
+
+def chart_with_encode_items(dataset_name: str, x: str, y: str, encode_items: list) -> alt.vegalite.v5.api.Chart:
+    _data = getattr(data, dataset_name)()
+
+    return alt.Chart(_data).mark_point().encode(alt.X(x), alt.Y(y), *encode_items)
 
 
 def show_dataset_names():
