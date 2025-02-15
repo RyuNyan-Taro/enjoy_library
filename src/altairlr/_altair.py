@@ -1,4 +1,4 @@
-__all__ = ['chart_sample_data', 'chart_selected_mark', 'chart_with_encode_items', 'horizontally_concat_charts', 'vertically_concat_charts']
+__all__ = ['chart_sample_data', 'chart_selected_mark', 'chart_with_encode_items', 'show_mark_types', 'horizontally_concat_charts', 'vertically_concat_charts']
 
 import altair as alt
 from vega_datasets import data
@@ -54,6 +54,10 @@ def chart_with_encode_items(dataset_name: str, x: str, y: str, encode_items: lis
 
 def show_dataset_names():
     print([d for d in dir(data) if not d.startswith("_")])
+
+
+def show_mark_types():
+    print([method for method in dir(alt.Chart) if method.startswith("mark_")])
 
 
 def horizontally_concat_charts(charts: list):
