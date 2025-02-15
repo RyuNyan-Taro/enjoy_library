@@ -56,11 +56,16 @@ def chart_with_encode_items(dataset_name: str, x: str, y: str, encode_items: lis
     return alt.Chart(_data).mark_point().encode(alt.X(x), alt.Y(y), *encode_items)
 
 
-def chart_with_layout(dataset: Union[alt.ChartDataType, str], x: str, y: str, x_layout: dict, y_layout: dict) -> alt.vegalite.v5.api.Chart:
+def chart_with_layout(dataset: Union[alt.ChartDataType, str], x: str, y: str, mark_layout: Optional[dict], x_layout: dict, y_layout: dict) -> alt.vegalite.v5.api.Chart:
     if isinstance(dataset, str):
         dataset = getattr(data, dataset)()
 
-    return alt.Chart(dataset).mark_point().encode(
+    if mark_layout:
+        _chart = alt.Chart(dataset).mark_point(**mark_layout)
+    else:
+        _chart = alt.Chart(dataset).mark_point()
+
+    return _chart.encode(
         alt.X(x, **x_layout),
         alt.Y(y, **y_layout)
     )
