@@ -1,4 +1,4 @@
-__all__ = ['chart_sample_data', 'chart_selected_mark', 'chart_with_encode_items', 'show_mark_types', 'horizontally_concat_charts', 'vertically_concat_charts']
+__all__ = ['chart_sample_data', 'chart_selected_mark', 'chart_with_encode_items', 'show_dataset_names', 'show_mark_types', 'horizontally_concat_charts', 'vertically_concat_charts']
 
 import altair as alt
 from vega_datasets import data
