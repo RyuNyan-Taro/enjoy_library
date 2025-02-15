@@ -58,7 +58,7 @@ def chart_with_encode_items(dataset_name: str, x: str, y: str, encode_items: lis
 
 def chart_with_layout(dataset: Union[alt.ChartDataType, str], x: str, y: str,
                       mark_layout: Optional[dict], x_layout: dict, y_layout: dict,
-                      encode_items: Optional[list] = None) -> alt.vegalite.v5.api.Chart:
+                      encode_items: Optional[list] = None, **kwargs) -> alt.vegalite.v5.api.Chart:
     if isinstance(dataset, str):
         dataset = getattr(data, dataset)()
 
@@ -71,12 +71,12 @@ def chart_with_layout(dataset: Union[alt.ChartDataType, str], x: str, y: str,
         return _chart.encode(
             alt.X(x, **x_layout),
             alt.Y(y, **y_layout),
-            *encode_items
+            *encode_items, **kwargs
         )
 
     return _chart.encode(
             alt.X(x, **x_layout),
-            alt.Y(y, **y_layout)
+            alt.Y(y, **y_layout), **kwargs
         )
 
 
