@@ -57,10 +57,14 @@ def show_dataset_names():
 
 
 def show_mark_types():
-    print([method for method in dir(alt.Chart) if method.startswith("mark_")])
+    print(_mark_types_list())
 
 
 def get_mark_types():
+    return _mark_types_list()
+
+
+def _mark_types_list() -> list[str]:
     return [method for method in dir(alt.Chart) if method.startswith("mark_")]
 
 
