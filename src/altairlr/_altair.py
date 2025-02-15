@@ -65,7 +65,7 @@ def get_mark_types():
 
 
 def _mark_types_list() -> list[str]:
-    return [method for method in dir(alt.Chart) if method.startswith("mark_")]
+    return [method.split('_')[1] for method in dir(alt.Chart) if method.startswith("mark_")]
 
 
 def horizontally_concat_charts(charts: list):
