@@ -1,6 +1,5 @@
 __all__ = ['compare_handling_time']
 
-import pandas as pd
 import seaborn as sns
 import duckdb
 import time
