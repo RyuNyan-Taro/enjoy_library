@@ -11,7 +11,7 @@ def compare_handling_time(dataset_name: str):
     _data.to_csv('test_data.csv', index=False)
     _duck = duckdb.read_csv('test_data.csv')
 
-    for _func in [_select_columns, _filter_rows]:
+    for _func in [_select_columns, _filter_rows, _sort_rows]:
         print(f'\n{_func.__name__}')
         _func(_data, _duck)
 
@@ -54,3 +54,23 @@ def _filter_rows(_data, _duck):
     _start = time.time()
     _ = _duck.filter(condition)
     print(time.time() - _start)
+
+
+def _sort_rows(_data, _duck):
+    _col = _data.columns[0]
+
+    print('pandas')
+    _start = time.time()
+    _ = _data.sort_values(_col)
+    print(time.time() - _start)
+
+    print('duck with sql')
+    _start = time.time()
+    _ = duckdb.sql(f"SELECT * FROM _data ORDER BY {_col}")
+    print(time.time() - _start)
+
+    print('duck with read_csv')
+    _start = time.time()
+    _ = _duck.order(_col)
+    print(time.time() - _start)
+
