@@ -33,3 +33,24 @@ def _select_columns(_data, _duck):
     _start = time.time()
     _ = _duck.project(f'{", ".join(_cols)}')
     print(time.time() - _start)
+
+
+def _filter_rows(_data, _duck):
+    _col = _data.columns[0]
+    _target = _data[_col].unique()[0]
+    condition = f"{_col} == '{_target}'"
+
+    print('pandas')
+    _start = time.time()
+    _ = _data.query(condition)
+    print(time.time() - _start)
+
+    print('duck with sql')
+    _start = time.time()
+    _ = duckdb.sql(f"SELECT * FROM _data WHERE {condition}")
+    print(time.time() - _start)
+
+    print('duck with read_csv')
+    _start = time.time()
+    _ = _duck.filter(condition)
+    print(time.time() - _start)
