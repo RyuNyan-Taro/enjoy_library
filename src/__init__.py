@@ -1,1 +1,1 @@
-from . import altairlr
+from . import altairlr, ducker
